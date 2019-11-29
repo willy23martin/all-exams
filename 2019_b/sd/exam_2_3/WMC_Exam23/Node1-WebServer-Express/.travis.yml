@@ -1,0 +1,30 @@
+language: node_js
+jobs:
+ include:
+  - os: windows
+    node_js:
+      - 10.16.3
+    env:
+      - IPV4_NETWORK_INTERFACE=Conexión de red inalámbrica
+      - DATABASE_MONGODB_PASSWORD=testingNodeI¡
+      - DATABASE_MONGODB_USER=testUser
+  - os: linux
+    node_js:
+      - 10.16.3
+    env:
+      - IPV4_NETWORK_INTERFACE=eth0
+      - DATABASE_MONGODB_PASSWORD=testingNodeI¡
+      - DATABASE_MONGODB_USER=testUser
+cache:
+  directories:
+    - node_modules
+notifications:
+  email: false
+branches:
+  only:
+  - master
+  - develop
+install:
+  - npm install
+script:
+  - npm test
