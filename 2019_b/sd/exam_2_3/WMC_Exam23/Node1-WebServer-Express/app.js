@@ -37,3 +37,5 @@ apiService.use('/api/sd2019bExam1/', apiEndpoints);
 apiService.listen(port, () => {
     console.log('API Service running ...');
 });
+
+module.exports = apiService;

@@ -59,24 +59,21 @@ var controller = {
                     data.forEach(val => {
                         result.push(val);
                     });
-                    mongoDBDatabaseConnection.close().then(() => {
-                        return res.status(200).send({
-                            "status": "200 OK",
-                            "message": `Microservices API works for users`,
-                            "results": result,
-                            "webServerLocation": apiServiceLocation
-                        });
+                    
+                    return res.status(200).send({
+                        "status": "200 OK",
+                        "message": `Microservices API works for users`,
+                        "results": result,
+                        "webServerLocation": apiServiceLocation
                     });
                 });
             } else {
                 console.error(err);
-                mongoDBDatabaseConnection.close().then(() => {
-                    return res.status(500).send({
-                        "status": "500 Internal Server Error",
-                        "message": `ERROR! -- Microservices API does not work for users`,
-                        "results": err,
-                        "webServerLocation": apiServiceLocation
-                    });
+                return res.status(500).send({
+                    "status": "500 Internal Server Error",
+                    "message": `ERROR! -- Microservices API does not work for users`,
+                    "results": err,
+                    "webServerLocation": apiServiceLocation
                 });
             }
         });
@@ -114,41 +111,33 @@ var controller = {
                 }).then(
                     response => {
                         // console.log(response);
-
                         resultCheck = {
-                            insertedUser: response.ops,
+                            insertedUser: response.result.n,
                             ack: response.insertedCount
                         };
-
-                        mongoDBDatabaseConnection.close().then(() => {
-                            return res.status(200).send({
-                                "status": "200 OK",
-                                "message": `Microservices API works for users`,
-                                "results": resultCheck,
-                                "webServerLocation": apiServiceLocation
-                            });
+                        return res.status(200).send({
+                            "status": "200 OK",
+                            "message": `Microservices API works for users`,
+                            "results": resultCheck,
+                            "webServerLocation": apiServiceLocation
                         });
                     }).catch(error => {
                         resultCheck = error;
-                        mongoDBDatabaseConnection.close().then(() => {
-                            return res.status(500).send({
-                                "status": "500 Internal Server Error",
-                                "message": `ERROR! -- Microservices API does not work for users`,
-                                "results": resultCheck,
-                                "webServerLocation": apiServiceLocation
-                            });
+                        return res.status(500).send({
+                            "status": "500 Internal Server Error",
+                            "message": `ERROR! -- Microservices API does not work for users`,
+                            "results": resultCheck,
+                            "webServerLocation": apiServiceLocation
                         });
                     });
             } else {
                 console.error(err);
                 resultCheck = err;
-                mongoDBDatabaseConnection.close().then(() => {
-                    return res.status(500).send({
-                        "status": "500 Internal Server Error",
-                        "message": `ERROR! -- Microservices API does not work for users`,
-                        "results": resultCheck,
-                        "webServerLocation": apiServiceLocation
-                    });
+                return res.status(500).send({
+                    "status": "500 Internal Server Error",
+                    "message": `ERROR! -- Microservices API does not work for users`,
+                    "results": resultCheck,
+                    "webServerLocation": apiServiceLocation
                 });
             }
         });
